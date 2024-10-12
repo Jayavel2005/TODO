@@ -2,13 +2,20 @@ const todoInput = document.getElementById("todoInput");
 const saveBtn = document.getElementById("saveBtn");
 const todoList = document.querySelector(".js-todo-container");
 
-const todos = [];
+let todos = [];
 
+
+window.onload = () =>{
+    todos = JSON.parse((localStorage.getItem("todos"))) || [];
+    todos.forEach(todo => addTodo(todo));
+    
+}
 
 saveBtn.addEventListener("click",() => {
     let task = todoInput.value;
     todos.push(task);
     addTodo(task);
+    localStorage.setItem("todos",JSON.stringify(todos));
     console.log(todos);
     
     todoInput.value = "";
@@ -41,6 +48,7 @@ function remove  (todoTask){
         console.log(todos);
         
     }
+    localStorage.setItem("todos",todos)
 }
 
 
